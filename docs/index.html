@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Adivinhe as Cores</title>
+	</head>
+	<body onload="do_game()">
+		<script type="text/javascript">
+			//1.
+			var colors = ["blue", "gray", "yellow", "green","black", "cyan", "purple", "silver", "orange", "lime", "magenta", "olive", "maroon", "brown", "darkblue", "lightblue"];
+			colors = colors.sort();
+
+			//2.
+			function do_game() {
+
+				//2.1
+				var target_index = Math.floor(Math.random() * (colors.length - 0)) + 0;
+
+				//2.2
+				var target = colors[target_index];
+				var message = "Estou pensando em uma destas cores:\n\n";
+				for (var i = 0 ; i < colors.length ; i++) {
+					message += colors[i];
+					if (i == (colors.length-2)){
+						message += " e ";
+					} else if (i != (colors.length-1)) {
+						message += ", ";
+					}
+				}
+
+				var guess_input;
+				var finished = false;
+				var gameCount = 0;
+				alert(target);
+
+				//2.3
+				while (!finished){
+					guess_input = prompt(message).toLowerCase();
+					gameCount++;
+					finished = check_guess(guess_input,target);
+					if (finished) {
+						var myBody = document.getElementsByTagName("body")[0];
+						myBody.style.background = target;
+						alert("Você acertou!!\n\nVocê precisou de " + gameCount + "tentativas para ganhar o jogo!\n\nYVocê pode ver a cor ao fundo.");
+					}
+					
+				}
+				var myBody = document.getElementsByTagName("body")[0];
+				myBody.style.background = target;
+			}
+
+			//3.
+			function check_guess(guess, target) {
+				if (colors.indexOf(guess)<0) {
+
+					//3.1
+					alert("Isto não é uma cor. \n\n Tente novamente.");
+					return false;
+				} else if(guess > target) {
+
+					//3.2
+					alert("Incorreto!\n\nDica: Sua cor é alfabeticamente maior que a minha.\n\nTente novamente.");
+				} else if (guess < target) {
+
+					//3.3
+					alert("Incorreto!\n\nDica: Sua cor é alfabeticamente menor que a minha.\n\nTente novamente.");
+				} else {
+					return true;
+				}
+			}
+
+		</script>
+	</body>
+</html>
